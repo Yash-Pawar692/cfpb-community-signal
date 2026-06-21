@@ -20,10 +20,14 @@ themes_df = load_themes()
 zip3_df = load_zip3()
 
 # Theme selector
-choice = st.selectbox("Select a theme", sorted(themes_df["theme"].unique()))
+choice = st.selectbox(
+    "Select a theme",
+    sorted(themes_df["theme_label"].unique())
+)
+
+row = themes_df[themes_df["theme_label"] == choice].iloc[0]
 
 col1, col2, col3 = st.columns(3)
-row = themes_df[themes_df["theme"] == choice].iloc[0]
 col1.metric("Complaints", int(row["complaint_count"]))
 col2.metric("Avg Stress Score", round(float(row["avg_severity"]), 3))
 col3.metric("Top State", row["top_state"])
