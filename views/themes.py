@@ -26,6 +26,7 @@ choice = st.selectbox(
 )
 
 row = themes_df[themes_df["theme_label"] == choice].iloc[0]
+theme_id = int(row["theme"])
 
 col1, col2, col3 = st.columns(3)
 col1.metric("Complaints", int(row["complaint_count"]))
@@ -35,7 +36,7 @@ col3.metric("Top State", row["top_state"])
 st.divider()
 
 st.subheader("ZIP-3 communities with this theme")
-zip3_filtered = zip3_df[zip3_df["top_theme"] == choice].sort_values(
+zip3_filtered = zip3_df[zip3_df["top_theme"] == theme_id].sort_values(
     "complaint_count", ascending=False
 )
 
